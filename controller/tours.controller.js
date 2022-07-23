@@ -57,7 +57,10 @@ const getAllTours = catchAsync(async (req, res, next) => {
 			$gte: 1000,
 		},
 		difficulty: "medium",
-	});
+	})
+		.limit(10)
+		.sort("-price -duration")
+		.select(" -__v");
 
 	// const allTours = await Tours.find(query);
 
@@ -79,6 +82,38 @@ const Test = (req, res) => {
 	});
 };
 // ******************************* get tour by id************************************
+// ******************************* update tour by id********************************
+const updateTour = catchAsync(async (req, res) => {
+	const { id } = req.params;
+
+	const _updateTour = await Tours.findByIdAndUpdate(
+		id,
+		req.body,
+		{
+			new: true,
+		},
+	);
+
+	res.status(200).json({
+		status: "success",
+		message: "Tours updated successfully",
+		data: _updateTour,
+	});
+});
+// ******************************* end tour by id********************************
+// ****************************** delete tour by id********************************
+const deleteTour = catchAsync(async (req, res) => {
+	const { id } = req.params;
+
+	const _deleteTour = await Tours.findByIdAndDelete(id);
+
+	res.status(200).json({
+		status: "success",
+		message: "Tours deleted successfully",
+		data: _deleteTour,
+	});
+});
+// ******************************* end delete tour by id********************************
 
 const getTourByID = catchAsync(async (req, res, next) => {
 	const { id } = req.params;
@@ -97,4 +132,6 @@ module.exports = {
 	getAllTours,
 	Test,
 	getTourByID,
+	updateTour,
+	deleteTour,
 };
