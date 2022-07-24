@@ -1,7 +1,8 @@
-const e = require("express");
+// const e = require("express");
 const Tour = require("../database/Schema/tours.schema");
 const Tours = require("../database/Schema/tours.schema");
 const catchAsync = require("../utils/catchAsync");
+const _Error = require("../utils/_Error");
 
 // ******************************* Add newTour *********************************
 const addTour = catchAsync(async (req, res, next) => {
@@ -31,11 +32,6 @@ const addTour = catchAsync(async (req, res, next) => {
 
 // ******************************* get allTours************************************
 const getAllTours = catchAsync(async (req, res, next) => {
-	// const q = await Tours.find()
-	// 	.where("duration")
-	// 	.lt(5)
-	// 	.exec();
-	// console.log(q);
 	// ?==================
 	const { query } = req;
 	// let query = req.query;
